@@ -7,8 +7,25 @@ export function Navbar() {
       <nav className="relative bg-white shadow dark:bg-gray-800">
         <div className="container px-6 py-4 mx-auto">
           <div className="lg:flex lg:items-center lg:justify-between">
-            <div>
-              <h2 className="text-lg">Books Review</h2>
+            <div className="flex items-center ">
+              <svg
+              className="text-blue-800"
+                viewBox="0 0 64 64"
+                fill="currentColor"
+                height="2em"
+                width="2em"
+              >
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  strokeMiterlimit={10}
+                  strokeWidth={4}
+                  d="M63 3v50l-4 8-4-8V3zM55 7h-4v10M4 3h40v58H4zM34 3v57M8 16H0M8 8H0M8 24H0M8 32H0M8 40H0M8 48H0M8 56H0"
+                />
+              </svg>
+              <h2 className="text-xl mx-1 " style={{ color: "#4a5563" }}>
+                Qalamy
+              </h2>
             </div>
             <div className="w-1/3">
               <form>
