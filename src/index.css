@@ -11,3 +11,8 @@ body,
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
+
+.loginGrid {
+    display: grid;
+    grid-template-columns: 40% 60%;
+}

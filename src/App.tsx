@@ -8,7 +8,7 @@ import { Signup } from "./pages/Signup";
 function App() {
   return (
     <SearchContextProvider>
-      <Navbar />
+     
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
