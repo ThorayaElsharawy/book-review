@@ -6,8 +6,12 @@ type AuthContextProviderProps = {
   children: React.ReactNode;
 };
 
+type User = {
+  email: string
+} 
+
 type AuthContext = {
-    currentUser: string
+    currentUser: User
     signup: (email: string, password: string) => Promise<FirebaseUserCredential>
 }
 
@@ -19,7 +23,7 @@ type FirebaseUserCredential = {
 export const AuthContext = createContext({} as AuthContext);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
-  const [currentUser, setCurrentUser] = useState("");
+  const [currentUser, setCurrentUser] = useState<User>({email: ''});
 
   function signup(email: string, password: string): Promise<FirebaseUserCredential> {
     return auth.createUserWithEmailAndPassword(email, password);
