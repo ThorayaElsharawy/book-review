@@ -13,6 +13,7 @@ type User = {
 type AuthContext = {
     currentUser: User
     signup: (email: string, password: string) => Promise<FirebaseUserCredential>
+    login: (email: string, password: string) => Promise<FirebaseUserCredential>
 }
 
 type FirebaseUserCredential = {
@@ -29,6 +30,10 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     return auth.createUserWithEmailAndPassword(email, password);
   }
 
+  function login(email: string, password: string): Promise<FirebaseUserCredential> {
+    return auth.signInWithEmailAndPassword(email, password)
+  }
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user: any) => {
       setCurrentUser(user);
@@ -40,7 +45,8 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   return (
     <AuthContext.Provider value={{ 
         currentUser, 
-        signup 
+        signup,
+        login
     }}>
       {children}
     </AuthContext.Provider>

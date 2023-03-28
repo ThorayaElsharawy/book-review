@@ -1,5 +1,5 @@
 import { useContext, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export function Signup() {
@@ -8,7 +8,7 @@ export function Signup() {
   const [passwordConfirem, setPasswordConfirem] = useState("");
   const { signup, currentUser } = useContext(AuthContext);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   async function handleSubmitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -19,13 +19,11 @@ export function Signup() {
 
     try {
       setError("");
-      setLoading(true);
       await signup(email, password);
+      navigate('/')
     } catch {      
       setError("Faild to create an acoount");
     }
-
-    setLoading(false);
   }
 
   return (
