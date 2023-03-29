@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Navbar } from "../components/Navbar";
+import { AuthContext } from "../context/AuthContext";
 import { SearchContext } from "../context/SearchContext";
 import { Item } from "../types/Book";
 
 export function Home() {
   const { searchValue } = useContext(SearchContext);
   const [searchResult, setSearchResult] = useState<Item[]>([]);
+  const { currentUser } = useContext(AuthContext)
 
   const fetchData = (query: any) => {
     axios

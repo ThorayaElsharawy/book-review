@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { SearchBooks } from "./SearchBooks";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <div>
-      <nav className="relative bg-white shadow dark:bg-gray-800">
-        <div className="container px-6 py-4 mx-auto">
+      <nav className="bg-white shadow dark:bg-gray-800">
+        <div className="relative container px-6 py-4 mx-auto">
           <div className="lg:flex lg:items-center lg:justify-between">
             <div className="flex items-center ">
               <svg
-              className="text-blue-800"
+                className="text-blue-800"
                 viewBox="0 0 64 64"
                 fill="currentColor"
                 height="2em"
@@ -51,19 +54,56 @@ export function Navbar() {
                   />
                 </svg>
               </button>
-              <button
-                type="button"
-                className="flex rounded-full bg-gray-200 text-sm"
-                id="user-menu-button"
-                aria-expanded="false"
-                aria-haspopup="true"
-              >
+
+              <button onClick={() => setIsOpen(!isOpen)} className="flex items-center justify-center">
                 <img
                   className="h-9 w-9 rounded-full"
                   src="src/assets/user.jpg"
                   alt=""
                 />
+                <svg
+                  className={`${
+                    isOpen ? "transform rotate-180" : ""
+                  } w-6 h-6 ml-2`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
               </button>
+              {isOpen && (
+                <div className="absolute right-0 top-14 z-10 w-40 mt-2 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <div
+                    className="py-1"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="options-menu"
+                  >
+                    <p className=" border-b  block px-4 py-2 text-sm text-gray-700 ">
+                      Signed in as {currentUser.email}
+                    </p>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem"
+                    >
+                      Profile
+                    </a>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem"
+                    >
+                      Log out
+                    </a>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
