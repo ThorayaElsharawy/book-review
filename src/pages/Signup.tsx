@@ -21,8 +21,20 @@ export function Signup() {
       setError("");
       await signup(email, password);
       navigate('/')
-    } catch {      
-      setError("Faild to create an acoount");
+    } catch(err: any) {      
+      if (err.code === "auth/email-already-in-use") {
+        setError("The email address provided is already in use by another account.");
+      } else if (err.code === "auth/invalid-email") {
+        setError("The email address provided is not valid.");
+      } else if (err.code === "auth/weak-password") {
+        setError("The password provided is too weak.");
+      } else if (err.code === "auth/operation-not-allowed") {
+        setError("Account creation is currently disabled.");
+      } else if (err.code === "auth/network-request-failed") {
+        setError("A network error occurred while attempting to create your account. Please try again later.");
+      } else {
+        setError(err.code);
+      }      
     }
   }
 
