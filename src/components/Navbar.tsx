@@ -1,10 +1,28 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { SearchBooks } from "./SearchBooks";
+import { useNavigate } from "react-router-dom";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, logout } = useContext(AuthContext);
+  const [error, setError] = useState('')
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+    console.log('here');
+    
+    setError('');
+
+    try {
+      await logout();
+      navigate('/login')
+
+    } catch {
+      setError('Failed to log out')
+    }
+
+  }
 
   return (
     <div>
@@ -55,7 +73,10 @@ export function Navbar() {
                 </svg>
               </button>
 
-              <button onClick={() => setIsOpen(!isOpen)} className="flex items-center justify-center">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="flex items-center justify-center"
+              >
                 <img
                   className="h-9 w-9 rounded-full"
                   src="src/assets/user.jpg"
@@ -94,13 +115,12 @@ export function Navbar() {
                     >
                       Profile
                     </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                      role="menuitem"
+                    <p
+                      onClick={handleLogout}
+                      className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     >
                       Log out
-                    </a>
+                    </p>
                   </div>
                 </div>
               )}
